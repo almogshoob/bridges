@@ -1,28 +1,28 @@
 import { useState } from "react";
 import "../../App.css";
 import { NextPageIcon } from "../../assets/icons";
-import { Dialog } from "../../templates";
 import {
-  e1FromLight,
-  e1ToLight,
-  e2FromLight,
-  e2ToLight,
-  e3FromLight,
-  e3ToLight,
-  e4FromLight,
-  e4ToLight,
   e1FromDark,
+  e1FromLight,
   e1ToDark,
+  e1ToLight,
   e2FromDark,
+  e2FromLight,
   e2ToDark,
+  e2ToLight,
   e3FromDark,
+  e3FromLight,
   e3ToDark,
+  e3ToLight,
   e4FromDark,
+  e4FromLight,
   e4ToDark,
+  e4ToLight,
 } from "../../assets/images/example-board";
 import useSettingsStore from "../../stores/settingsStore";
+import { Modal } from "../../templates";
 
-export const HowToDialog = ({ open, onClose }) => {
+export const HowToModal = ({ open, onClose }) => {
   const { isDarkMode } = useSettingsStore();
   const [exampleIndex, setExampleIndex] = useState(0);
   const exampleText = [
@@ -71,15 +71,8 @@ export const HowToDialog = ({ open, onClose }) => {
   };
 
   return (
-    <Dialog
-      open={open}
-      onClose={handleClose}
-      style={{
-        backgroundColor: "var(--app-background-color)",
-        background: "var(--app-background)",
-      }}
-    >
-      <div className="example-dialog">
+    <Modal open={open} onClose={handleClose}>
+      <div className="example-modal">
         <div className="example-img-panel | row">
           <NextPageIcon
             onClick={handlePrev}
@@ -96,6 +89,6 @@ export const HowToDialog = ({ open, onClose }) => {
         </div>
         {exampleText[exampleIndex]}
       </div>
-    </Dialog>
+    </Modal>
   );
 };

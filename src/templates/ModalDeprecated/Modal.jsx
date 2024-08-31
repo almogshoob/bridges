@@ -1,10 +1,10 @@
 import { useEffect, useRef } from "react";
-import "./Dialog.css";
+import "./Modal.css";
 
-export function Dialog({ open, onClose, children, style = {} }) {
+export function Modal({ open, onClose, children, style = {} }) {
   const dialogRef = useRef();
 
-  const closeDialog = (event) => {
+  const closeModal = (event) => {
     if (dialogRef.current === event.target) {
       dialogRef.current.classList.remove("dialog-open-transition");
       setTimeout(onClose, 100);
@@ -23,7 +23,7 @@ export function Dialog({ open, onClose, children, style = {} }) {
     <div
       ref={dialogRef}
       className={`dialog${open ? " dialog-open" : ""}`}
-      onClick={closeDialog}
+      onClick={closeModal}
     >
       <div className="dialog-paper" style={style}>
         {children}

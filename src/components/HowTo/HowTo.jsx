@@ -4,17 +4,17 @@ import { HelpIcon, InfoIcon } from "../../assets/icons";
 import useBoardStore from "../../stores/boardStore";
 import useSettingsStore from "../../stores/settingsStore";
 import { getLastTime, isSolutionCorrect, runLottie } from "../../utils/utils";
-import { HowToDialog } from "../../components";
+import { HowToModal } from "../../components";
 
 export const HowTo = ({ lottieConfettiRef, lottieFailRef }) => {
   const { isHardMode, setTimerState } = useSettingsStore();
   const { islands, bridges } = useBoardStore();
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const lastTime = getLastTime(isHardMode);
   const timeoutId = useRef();
 
-  const toggleDialog = () => {
-    setIsDialogOpen(!isDialogOpen);
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
   };
 
   const handleSubmit = () => {
@@ -64,7 +64,7 @@ export const HowTo = ({ lottieConfettiRef, lottieFailRef }) => {
             <InfoIcon className="icon" />
             <p>כדי לחבר גשר מתחו קו בין שני האיים תוך כדי לחיצה</p>
           </div>
-          <div className="row fit-content button-like" onClick={toggleDialog}>
+          <div className="row fit-content button-like" onClick={toggleModal}>
             <HelpIcon className="icon" />
             <p>לא הבנתי תן דוגמה</p>
           </div>
@@ -76,7 +76,7 @@ export const HowTo = ({ lottieConfettiRef, lottieFailRef }) => {
         </button>
         {lastTime && <p>סיימת היום תוך {lastTime}</p>}
       </div>
-      <HowToDialog open={isDialogOpen} onClose={toggleDialog} />
+      <HowToModal open={isModalOpen} onClose={toggleModal} />
     </div>
   );
 };
