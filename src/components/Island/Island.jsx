@@ -20,7 +20,9 @@ export const Island = ({
       }}
       id={islandId}
       onMouseDown={handleIslandDown}
+      onTouchStart={handleIslandDown}
       onMouseUp={handleIslandUp}
+      onTouchEnd={handleIslandUp}
     >
       <svg
         width={"100%"}
