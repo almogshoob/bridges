@@ -1,11 +1,6 @@
-#root {
-  height: 100%;
-  overflow: hidden;
-}
-
 .App {
   --grid-size: 15;
-  --cell-size: 36;
+  --cell-size: 20;
   --board-image: url(./assets/images/board-15.png);
 
   --app-text-color: hsl(0, 0%, 95%);
@@ -23,7 +18,7 @@
   --island-stroke-x: hsl(0, 50%, 50%);
   --bridge-color: hsl(25deg 70% 30%);
 
-  height: 100%;
+  min-height: 100svh;
   font-size: 1.1rem;
   user-select: none;
 
@@ -34,7 +29,7 @@
 }
 .App.hard-mode {
   --grid-size: 13;
-  --cell-size: 41.5;
+  --cell-size: 23;
   --board-image: url(./assets/images/board-13.png);
 }
 .App.dark-mode {
@@ -53,70 +48,68 @@
   --island-stroke-x: hsl(0, 50%, 40%);
   --bridge-color: hsl(25deg 50% 25%);
 }
-.App.time-effect-dark {
-  filter: brightness(0.2);
-  transition: filter 5s linear;
-}
-.App.time-effect-dark .board-wrapper {
-  animation: shake 800ms linear 1.5s, shake 700ms linear 2.3s,
-    shake 600ms linear 3s, shake 500ms linear 3.6s, shake 400ms linear 4.1s,
-    shake 300ms linear 4.5s, shake 200ms linear 4.8s,
-    shake 100ms infinite linear 5s;
-}
-.App.time-effect-flash {
-  filter: brightness(1);
-  transform: scale(2) rotate(3deg);
-  opacity: 0;
-  transition: filter 300ms, opacity 300ms, transform 300ms;
-}
-.App.time-effect-end {
-  opacity: 1;
-  transition: opacity 5s;
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
 }
 
-.wrapper {
-  justify-content: center;
-  gap: 5rem;
-  padding: 2rem 12rem;
-}
+.settings {
+  --width: 3.5rem;
+  padding: 0.5rem;
+  width: var(--width);
 
-.page-title {
-  font-size: 11rem;
-  font-weight: 400;
-  font-family: "Karantina";
-  letter-spacing: 10px;
-  line-height: 1;
-  margin-block: 0.75rem;
-  text-shadow: 5px 5px 10px hsla(0, 0%, 0%, 0.6);
-  --animation-delay: 3000ms;
-}
-.page-title::first-letter {
-  letter-spacing: 0px;
-}
-.page-title > :nth-last-child(2).hide {
-  animation: fade-out var(--animation-delay) forwards;
-}
-.page-title > :last-child {
-  font-size: 0.6em;
-  position: relative;
-  bottom: 16px;
-  left: 65px;
-  display: none;
-  animation: fade-in var(--animation-delay) forwards;
-}
+  border-radius: 100vw;
+  transition: background-color 1500ms;
 
-.page-title > :last-child.visible {
-  display: inline;
+  /* because somehow i get height more than needed */
+  display: grid;
+}
+.settings:hover {
+  background-color: var(--opacity-hover-background-color);
+  transition: background-color 100ms;
+}
+.settings:hover .settings-list {
+  height: 7rem;
+}
+.settings:hover svg {
+  transform: rotate(60deg);
+}
+.settings svg {
+  cursor: pointer;
+  box-sizing: border-box;
+  padding: 0.1rem;
+  width: var(--width);
+  transition: transform 300ms;
+}
+.settings-list {
+  height: 0;
+  transition: height 300ms;
+  overflow: hidden;
+  align-items: center;
+  font-size: 0.8rem;
+  box-sizing: border-box;
+}
+.settings-list > :first-child {
+  margin-top: 0.5rem;
+}
+.settings-list p {
+  margin-block: 0 0.3rem;
+}
+.settings-list .toggle {
+  margin-bottom: 0.6rem;
+  --toggle-width: 2.5rem;
+  --toggle-bg-color: var(--app-text-color);
+  --toggle-fg-color: var(--app-background-color);
+  --toggle-check-color: hsl(160, 55%, 50%);
 }
 
 .date {
-  font-size: 2.5rem;
-  position: fixed;
-  top: 1rem;
-  left: 2rem;
-  transform: rotate(-15deg);
+  font-size: 2rem;
   line-height: 1;
-  margin-block: 1.5rem;
+  margin-block: 0;
 }
 
 .how-to {
@@ -141,39 +134,59 @@
   line-height: 24px;
 }
 
-.done-wrapper {
-  /* width: var(--section-min-width); */
+.example-modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  color: var(--app-text-color);
+  background-color: var(--app-background-color);
+  background: var(--app-background);
+  margin: auto;
+  padding: 2rem;
+  border-radius: 1rem;
+}
+.example-img-panel {
+  align-items: center;
+  gap: 1rem;
+}
+.example-img {
+  width: 15rem;
+  border-radius: 1rem;
+}
+.example-nav {
+  width: 3rem;
+  padding: 0.1rem;
+  border-radius: 2rem;
+}
+.next {
+  transform: scaleX(-1);
+}
+.example-modal p {
+  margin-top: 1.5rem;
+  margin-bottom: 0;
   text-align: center;
+  width: 30rem;
+  height: 4.5rem;
 }
-.done-button {
-  font-size: 2.5rem;
-  margin-top: 3.8rem;
-  border-radius: 2rem;
-  box-shadow: 0 0 5px 0px hsla(0, 0%, 100%, 0.5);
-  border: 1px solid white;
-  background-color: transparent;
-  position: relative;
+
+.page-title {
+  font-size: 11rem;
+  font-weight: 400;
+  font-family: "Karantina";
+  letter-spacing: 10px;
+  line-height: 1;
+  margin-block: 0.75rem;
+  text-shadow: 5px 5px 10px hsla(0, 0%, 0%, 0.6);
+  --animation-delay: 3000ms;
 }
-.done-button::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 2rem;
-  background: linear-gradient(
-    to bottom,
-    hsla(0, 0%, 100%, 0.5),
-    hsla(0, 0%, 100%, 0.1)
-  );
+.page-title::first-letter {
+  letter-spacing: 0px;
 }
-.done-button:hover::before {
-  background: linear-gradient(
-    to bottom,
-    hsla(0, 0%, 100%, 0.55),
-    hsla(0, 0%, 100%, 0.15)
-  );
+
+.console {
+  max-width: fit-content;
+  margin-inline: auto;
 }
 
 .board-wrapper {
@@ -183,15 +196,8 @@
   box-shadow: var(--board-shadow);
   transition: transform 1s;
 }
-.board-wrapper.flipped {
-  transform: scaleX(-1) rotate(0deg);
-}
 .board-wrapper.rotate {
   transform: rotate(-360deg);
-  transition: transform 0s;
-}
-.board-wrapper.rotate.flipped {
-  transform: scaleX(-1) rotate(360deg);
   transition: transform 0s;
 }
 
@@ -260,44 +266,6 @@
 .timer {
   font-size: 1.5rem;
 }
-
-.example-modal {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  color: var(--app-text-color);
-  background-color: var(--app-background-color);
-  background: var(--app-background);
-  margin: auto;
-  padding: 2rem;
-  border-radius: 1rem;
-}
-.example-img-panel {
-  align-items: center;
-  gap: 1rem;
-}
-.example-img {
-  width: 15rem;
-  border-radius: 1rem;
-  /* TODO dark mode */
-}
-.example-nav {
-  width: 3rem;
-  padding: 0.1rem;
-  border-radius: 2rem;
-}
-.next {
-  transform: scaleX(-1);
-}
-.example-modal p {
-  margin-top: 1.5rem;
-  margin-bottom: 0;
-  text-align: center;
-  width: 30rem;
-  height: 4.5rem;
-}
-
 .pause {
   position: fixed;
   top: 0;
@@ -310,149 +278,46 @@
   justify-content: center;
   align-items: center;
 }
-.pause.visible {
+.pause[timerstate="pause"] {
   display: flex;
 }
 .pause svg {
   width: 20rem;
 }
 
-.credits {
-  --roll-time: 8s;
-  position: fixed;
-  inset: 0;
-  z-index: 6;
-  background-color: black;
-  display: none;
-  animation: fade-in-80 500ms forwards,
-    fade-out-80 500ms forwards var(--roll-time);
+.done-wrapper {
+  text-align: center;
+  margin-top: 2rem;
 }
-.credits.display {
-  display: block;
+.done-button {
+  font-size: 2.5rem;
+  border-radius: 2rem;
+  box-shadow: 0 0 5px 0px hsla(0, 0%, 100%, 0.5);
+  border: 1px solid white;
+  background-color: transparent;
+  position: relative;
 }
-.credits::after {
+.done-button::before {
   content: "";
   position: absolute;
-  inset: 0;
-  right: -150px;
-  left: -150px;
-  box-shadow: inset 0 0 100px 50px #131d23;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 2rem;
+  background: linear-gradient(
+    to bottom,
+    hsla(0, 0%, 100%, 0.5),
+    hsla(0, 0%, 100%, 0.1)
+  );
 }
-.credits p {
-  margin: 0 auto;
-  text-align: center;
-  white-space: pre-line;
-  line-height: 1.5;
-  font-size: 2rem;
-  transform: translateY(100%);
-  animation: roller var(--roll-time) linear;
+.done-button:hover::before {
+  background: linear-gradient(
+    to bottom,
+    hsla(0, 0%, 100%, 0.55),
+    hsla(0, 0%, 100%, 0.15)
+  );
 }
-
-.settings {
-  --width: 3.5rem;
-  position: fixed;
-  top: 1rem;
-  right: 1rem;
-  padding: 0.5rem;
-  width: var(--width);
-
-  border-radius: 100vw;
-  transition: background-color 1500ms;
-
-  /* because somehow i get height more than needed */
-  display: grid;
-}
-.settings:hover {
-  background-color: var(--opacity-hover-background-color);
-  transition: background-color 100ms;
-}
-.settings:hover .settings-list {
-  height: 7rem;
-}
-.settings:hover svg {
-  transform: rotate(60deg);
-}
-.settings svg {
-  cursor: pointer;
-  box-sizing: border-box;
-  padding: 0.1rem;
-  width: var(--width);
-  transition: transform 300ms;
-}
-.settings-list {
-  height: 0;
-  transition: height 300ms;
-  overflow: hidden;
-  align-items: center;
-  font-size: 0.8rem;
-  box-sizing: border-box;
-}
-.settings-list > :first-child {
-  margin-top: 0.5rem;
-}
-.settings-list p {
-  margin-block: 0 0.3rem;
-}
-.settings-list .toggle {
-  margin-bottom: 0.6rem;
-  --toggle-width: 2.5rem;
-  --toggle-bg-color: var(--app-text-color);
-  --toggle-fg-color: var(--app-background-color);
-  --toggle-check-color: hsl(160, 55%, 50%);
-}
-
-.ad {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  text-align: center;
-  transform: rotate(-15deg) translate(-5%, 90%);
-  --font-size: 3.5rem;
-  --img-size: 25rem;
-  /* img need to be square */
-}
-.ad > img {
-  width: var(--img-size);
-  cursor: pointer;
-  transition: transform 300ms;
-  border-radius: 20px;
-}
-.ad > img:hover {
-  transform: translateY(-20%);
-}
-.ad > h1 {
-  z-index: -1;
-  position: absolute;
-  inset: 0 0 auto 0;
-  margin: 0;
-  font-family: Chakra Petch;
-  font-size: var(--font-size);
-  color: transparent;
-  -webkit-text-stroke: 1px var(--app-text-color);
-  transition: top 300ms;
-  direction: ltr;
-}
-.ad > img:hover + h1 {
-  top: calc(-1.5 * var(--font-size) - 0.2 * var(--img-size));
-}
-
-/* .eggs {
-	position: fixed;
-	top: 0;
-	right: 0;
-	width: 20px;
-	margin: 1px;
-	aspect-ratio: 1;
-}
-.eggs:hover::after {
-	content: "חפשו את ה easter eggs!";
-	position: absolute;
-	top: 0;
-	right: 0;
-	padding: 5px 10px;
-	white-space: nowrap;
-	pointer-events: none;
-} */
 
 @keyframes shake {
   0% {

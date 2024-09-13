@@ -9,12 +9,12 @@ const useBoardStore = create((set, get) => ({
   bridges: {},
   setBridges: (bridges) => set(() => ({ bridges })),
   gridSize: isHardMode ? 13 : 15,
-  cellSize: isHardMode ? 41.5 : 36,
+  cellSize: isHardMode ? 23 : 20,
   setSize: (size) =>
     set(() =>
       size === 15
-        ? { gridSize: 15, cellSize: 36 }
-        : { gridSize: 13, cellSize: 41.5 }
+        ? { gridSize: 15, cellSize: 20 }
+        : { gridSize: 13, cellSize: 23 }
     ),
   updateNeighbour: (islandId, bridgesUpdate) =>
     set((state) => ({

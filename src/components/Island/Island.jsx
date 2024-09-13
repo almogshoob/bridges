@@ -19,10 +19,20 @@ export const Island = ({
         left: Number(islandId.substring(0, 2)) * cellSize + "px",
       }}
       id={islandId}
-      onMouseDown={handleIslandDown}
-      onTouchStart={handleIslandDown}
-      onMouseUp={handleIslandUp}
-      onTouchEnd={handleIslandUp}
+      onMouseDown={(e) => {
+        handleIslandDown(e.target.id);
+      }}
+      onMouseUp={(e) => {
+        handleIslandUp(e.target.id);
+      }}
+      onTouchStart={(e) => {
+        handleIslandDown(e.target.id);
+      }}
+      onTouchEnd={(e) => {
+        const { pageX, pageY } = e.changedTouches[0];
+        const islandId = document.elementsFromPoint(pageX, pageY)[0].id;
+        handleIslandUp(islandId);
+      }}
     >
       <svg
         width={"100%"}

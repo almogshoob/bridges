@@ -4,10 +4,10 @@ import { RestartIcon, UndoIcon } from "../../assets/icons";
 import { Bridge, Island, Timer } from "../../components";
 import useBoardStore from "../../stores/boardStore";
 import useSettingsStore from "../../stores/settingsStore";
-import { getBridgeId, getNeighbours, isValidBridge } from "../../utils/utils";
+import { getBridgeId, getLastTime, getNeighbours, isSolutionCorrect, isValidBridge, runLottie } from "../../utils/utils";
 
-export const Board = () => {
-  const { timerState, setTimerState } = useSettingsStore();
+export const Board = ({ lottieConfettiRef, lottieFailRef }) => {
+  const { timerState, isHardMode, setTimerState } = useSettingsStore();
   const {
     islands,
     bridges,
@@ -19,6 +19,8 @@ export const Board = () => {
   const [originCoordinates, setOriginCoordinates] = useState("");
   const gameStack = useRef([]).current;
   const restartCounter = useRef(0);
+
+  const lastTime = getLastTime(isHardMode);
 
   const updateNeighbours = (bridgeId, update) => {
     getNeighbours(bridgeId).forEach((islandId) => {
@@ -34,16 +36,16 @@ export const Board = () => {
     else setBridgeValue(bridgeId, value);
   };
 
-  const handleIslandDown = (event) => {
-    setOriginCoordinates(event.target.id);
+  const handleIslandDown = (islandId) => {
+    setOriginCoordinates(islandId);
   };
 
   const handleBoardLeave = () => {
     setOriginCoordinates("");
   };
 
-  const handleIslandUp = (event) => {
-    const destCoordinates = event.target.id;
+  const handleIslandUp = (islandId) => {
+    const destCoordinates = islandId;
     const bridgeId = getBridgeId(originCoordinates, destCoordinates);
     if (
       originCoordinates &&
@@ -83,15 +85,17 @@ export const Board = () => {
     }
   };
 
-  const handleFlipBoard = (event) => {
-    if (event.target.id === "board") {
-      const board = document.getElementById("board-wrapper");
-      board.classList.toggle("flipped");
+  const handleSubmit = () => {
+    if (isSolutionCorrect(islands, bridges)) {
+      runLottie("lottie-confetti", lottieConfettiRef);
+      setTimerState("finish");
+    } else {
+      runLottie("lottie-fail", lottieFailRef);
     }
   };
 
   return (
-    <div className="column">
+    <div className="console">
       <div className="board-top | row">
         <div
           className="icon-button | opacity-hover"
@@ -114,7 +118,6 @@ export const Board = () => {
         className="board-wrapper"
         onMouseLeave={handleBoardLeave}
         onMouseUp={handleBoardLeave}
-        onDoubleClick={handleFlipBoard}
       >
         <div
           id="board"
@@ -140,6 +143,12 @@ export const Board = () => {
             />
           ))}
         </div>
+      </div>
+      <div className="done-wrapper">
+        <button className="done-button" onClick={handleSubmit}>
+          סיימתי
+        </button>
+        {lastTime && <p>סיימת היום תוך {lastTime}</p>}
       </div>
     </div>
   );

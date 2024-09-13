@@ -1,55 +1,18 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import "../../App.css";
 import { HelpIcon, InfoIcon } from "../../assets/icons";
-import useBoardStore from "../../stores/boardStore";
-import useSettingsStore from "../../stores/settingsStore";
-import { getLastTime, isSolutionCorrect, runLottie } from "../../utils/utils";
 import { HowToModal } from "../../components";
 
-export const HowTo = ({ lottieConfettiRef, lottieFailRef }) => {
-  const { isHardMode, setTimerState } = useSettingsStore();
-  const { islands, bridges } = useBoardStore();
+export const HowTo = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const lastTime = getLastTime(isHardMode);
-  const timeoutId = useRef();
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
 
-  const handleSubmit = () => {
-    if (isSolutionCorrect(islands, bridges)) {
-      runLottie("lottie-confetti", lottieConfettiRef);
-      setTimerState("finish");
-    } else {
-      runLottie("lottie-fail", lottieFailRef);
-    }
-  };
-
-  const handleEnterM = () => {
-    timeoutId.current = setTimeout(() => {
-      document.getElementById("title-last-letter").classList.add("hide");
-      document.getElementById("japanese").classList.add("visible");
-    }, 5000);
-  };
-
-  const handleLeaveM = () => {
-    clearTimeout(timeoutId.current);
-  };
-
   return (
     <div className="how-to | column">
-      <h1 className="page-title">
-        גשרי
-        <span
-          id="title-last-letter"
-          onMouseEnter={handleEnterM}
-          onMouseLeave={handleLeaveM}
-        >
-          ם
-        </span>
-        <span id="japanese">橋</span>
-      </h1>
+      <h1 className="page-title">גשרים</h1>
       <section>
         <h3>חוקים</h3>
         <ul>
@@ -70,12 +33,6 @@ export const HowTo = ({ lottieConfettiRef, lottieFailRef }) => {
           </div>
         </div>
       </section>
-      <div className="done-wrapper">
-        <button className="done-button | h-center" onClick={handleSubmit}>
-          סיימתי
-        </button>
-        {lastTime && <p>סיימת היום תוך {lastTime}</p>}
-      </div>
       <HowToModal open={isModalOpen} onClose={toggleModal} />
     </div>
   );

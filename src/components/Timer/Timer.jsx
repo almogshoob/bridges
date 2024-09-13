@@ -1,9 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
 import "../../App.css";
 import useSettingsStore from "../../stores/settingsStore";
+import { PauseIcon } from "../../assets/icons";
 
 export const Timer = () => {
-  const { timerState, isHardMode } = useSettingsStore();
+  const { timerState, setTimerState, isHardMode } = useSettingsStore();
   const [seconds, setSeconds] = useState(0);
   const [intervalId, setIntervalId] = useState();
 
@@ -62,5 +63,19 @@ export const Timer = () => {
     else if (timerState === "init") initTimer();
   }, [timerState]);
 
-  return <div className="timer">{timerString}</div>;
+  const togglePause = () => {
+    if (timerState === "run") setTimerState("pause");
+    else if (timerState === "pause") setTimerState("run");
+  };
+
+  return (
+    <>
+      <div className="timer" onClick={togglePause}>
+        {timerString}
+      </div>
+      <div timerstate={timerState} className="pause" onClick={togglePause}>
+        <PauseIcon />
+      </div>
+    </>
+  );
 };
