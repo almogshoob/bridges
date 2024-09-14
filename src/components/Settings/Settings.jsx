@@ -6,7 +6,7 @@ import { Toggle } from "../../templates";
 import { getTodayLevel } from "../../utils/utils";
 
 export const Settings = () => {
-  const { setIslands, setBridges, setSize } = useBoardStore();
+  const { setIslands, setBridges } = useBoardStore();
   const {
     isHardMode,
     isDarkMode,
@@ -22,7 +22,6 @@ export const Settings = () => {
 
   useEffect(() => {
     setBridges({});
-    setSize(isHardMode ? 13 : 15);
     setIslands(getTodayLevel(isHardMode));
     setTimerState("init");
     localStorage.setItem("diff", isHardMode ? "hard" : "easy");

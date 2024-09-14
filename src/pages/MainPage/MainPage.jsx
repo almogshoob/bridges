@@ -2,6 +2,8 @@ import { useRef } from "react";
 import { Board, Confetti, DateDisplay, Fail, Settings } from "../../components";
 import useSettingsStore from "../../stores/settingsStore";
 
+// TODO navbar, hover
+
 const MainPage = () => {
   const { isHardMode, isDarkMode } = useSettingsStore();
 

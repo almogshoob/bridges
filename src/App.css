@@ -1,6 +1,5 @@
 .App {
   --grid-size: 15;
-  --cell-size: 20;
   --board-image: url(./assets/images/board-15.png);
 
   --app-text-color: hsl(0, 0%, 95%);
@@ -29,7 +28,6 @@
 }
 .App.hard-mode {
   --grid-size: 13;
-  --cell-size: 23;
   --board-image: url(./assets/images/board-13.png);
 }
 .App.dark-mode {
@@ -190,7 +188,7 @@
 }
 
 .board-wrapper {
-  padding: 1rem;
+  padding: clamp(8px, 2.25vw, 16px);
   border-radius: 1rem;
   background-color: var(--board-background-color);
   box-shadow: var(--board-shadow);
@@ -202,8 +200,10 @@
 }
 
 .board {
-  width: calc(var(--grid-size) * var(--cell-size) * 1px);
-  height: calc(var(--grid-size) * var(--cell-size) * 1px);
+  --board-width: 85vw;
+  width: var(--board-width);
+  max-width: 600px;
+  aspect-ratio: 1;
   position: relative;
   background-color: inherit;
 }
@@ -225,6 +225,9 @@
   position: absolute;
   width: calc(100% / var(--grid-size));
   height: calc(100% / var(--grid-size));
+
+  top: calc(100% / var(--grid-size) * var(--top-in-cells));
+  left: calc(100% / var(--grid-size) * var(--left-in-cells));
 }
 .island:hover,
 .island:active {
@@ -246,6 +249,36 @@
   border-width: 0;
   border-style: solid;
   border-color: var(--bridge-color);
+
+  top: calc(100% / var(--grid-size) * var(--top-in-cells));
+  left: calc(100% / var(--grid-size) * var(--left-in-cells));
+  --border-width: min(8px, calc(var(--board-width) / 75));
+
+  &.h {
+    transform: translateY(-50%);
+    width: calc(100% / var(--grid-size) * var(--length-in-cells));
+    &.single {
+      border-bottom-width: var(--border-width);
+    }
+    &.double {
+      border-top-width: var(--border-width);
+      border-bottom-width: var(--border-width);
+      height: var(--border-width);
+    }
+  }
+
+  &.v {
+    transform: translateX(-50%);
+    height: calc(100% / var(--grid-size) * var(--length-in-cells));
+    &.single {
+      border-right-width: var(--border-width);
+    }
+    &.double {
+      border-right-width: var(--border-width);
+      border-left-width: var(--border-width);
+      width: var(--border-width);
+    }
+  }
 }
 
 .board-top {
@@ -395,7 +428,6 @@
 
 /* .App {
   --grid-size: 6;
-  --cell-size: 100;
   --board-image: url(./assets/images/board-example.png);
   --dropshadow: drop-shadow(0px 0px 10px black);
 }
@@ -412,10 +444,7 @@
 /* 
 boardStore:
   islands: initIslandsFromData(levelsExample["example-1"]) (export util)
-  gridSize: 6,
-  cellSize: 100,
 Settings:
-  // setSize(isHardMode ? 13 : 15);
   // setIslands(getTodayLevel(isHardMode));
 Bridge:
   const borderWidth = "13px";

@@ -1,13 +1,4 @@
-import useBoardStore from "../../stores/boardStore";
-
-export const Island = ({
-  islandId,
-  value,
-  bridges,
-  handleIslandDown,
-  handleIslandUp,
-}) => {
-  const { cellSize } = useBoardStore();
+export const Island = ({ islandId, value, bridges, handleIslandTouch }) => {
   const isDone = bridges === value;
   const isWrong = bridges > value;
 
@@ -15,24 +6,11 @@ export const Island = ({
     <div
       className={`island ${isDone ? "v" : isWrong ? "x" : ""}`}
       style={{
-        top: Number(islandId.substring(3, 5)) * cellSize + "px",
-        left: Number(islandId.substring(0, 2)) * cellSize + "px",
+        "--top-in-cells": Number(islandId.substring(3, 5)),
+        "--left-in-cells": Number(islandId.substring(0, 2)),
       }}
       id={islandId}
-      onMouseDown={(e) => {
-        handleIslandDown(e.target.id);
-      }}
-      onMouseUp={(e) => {
-        handleIslandUp(e.target.id);
-      }}
-      onTouchStart={(e) => {
-        handleIslandDown(e.target.id);
-      }}
-      onTouchEnd={(e) => {
-        const { pageX, pageY } = e.changedTouches[0];
-        const islandId = document.elementsFromPoint(pageX, pageY)[0].id;
-        handleIslandUp(islandId);
-      }}
+      onClick={handleIslandTouch}
     >
       <svg
         width={"100%"}

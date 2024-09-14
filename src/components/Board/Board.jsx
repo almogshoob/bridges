@@ -4,7 +4,14 @@ import { RestartIcon, UndoIcon } from "../../assets/icons";
 import { Bridge, Island, Timer } from "../../components";
 import useBoardStore from "../../stores/boardStore";
 import useSettingsStore from "../../stores/settingsStore";
-import { getBridgeId, getLastTime, getNeighbours, isSolutionCorrect, isValidBridge, runLottie } from "../../utils/utils";
+import {
+  getBridgeId,
+  getLastTime,
+  getNeighbours,
+  isSolutionCorrect,
+  isValidBridge,
+  runLottie,
+} from "../../utils/utils";
 
 export const Board = ({ lottieConfettiRef, lottieFailRef }) => {
   const { timerState, isHardMode, setTimerState } = useSettingsStore();
@@ -36,27 +43,23 @@ export const Board = ({ lottieConfettiRef, lottieFailRef }) => {
     else setBridgeValue(bridgeId, value);
   };
 
-  const handleIslandDown = (islandId) => {
-    setOriginCoordinates(islandId);
-  };
-
-  const handleBoardLeave = () => {
-    setOriginCoordinates("");
-  };
-
-  const handleIslandUp = (islandId) => {
-    const destCoordinates = islandId;
-    const bridgeId = getBridgeId(originCoordinates, destCoordinates);
-    if (
-      originCoordinates &&
-      destCoordinates !== originCoordinates &&
-      isValidBridge(bridgeId, bridges, islands)
-    ) {
-      if (timerState !== "run") setTimerState("run");
-      const prevBridgeValue = bridges[bridgeId] || 0;
-      setBridge(bridgeId, (prevBridgeValue + 1) % 3);
+  const handleIslandTouch = (event) => {
+    if (!originCoordinates) {
+      setOriginCoordinates(event.target.id);
+    } else {
+      const destCoordinates = event.target.id;
+      const bridgeId = getBridgeId(originCoordinates, destCoordinates);
+      if (
+        originCoordinates &&
+        destCoordinates !== originCoordinates &&
+        isValidBridge(bridgeId, bridges, islands)
+      ) {
+        if (timerState !== "run") setTimerState("run");
+        const prevBridgeValue = bridges[bridgeId] || 0;
+        setBridge(bridgeId, (prevBridgeValue + 1) % 3);
+      }
+      setOriginCoordinates("");
     }
-    setOriginCoordinates("");
   };
 
   const handleUndo = () => {
@@ -113,12 +116,7 @@ export const Board = ({ lottieConfettiRef, lottieFailRef }) => {
           <RestartIcon />
         </div>
       </div>
-      <div
-        id="board-wrapper"
-        className="board-wrapper"
-        onMouseLeave={handleBoardLeave}
-        onMouseUp={handleBoardLeave}
-      >
+      <div id="board-wrapper" className="board-wrapper">
         <div
           id="board"
           className="board"
@@ -130,8 +128,7 @@ export const Board = ({ lottieConfettiRef, lottieFailRef }) => {
               islandId={islandId}
               value={islands[islandId].value}
               bridges={islands[islandId].bridges}
-              handleIslandDown={handleIslandDown}
-              handleIslandUp={handleIslandUp}
+              handleIslandTouch={handleIslandTouch}
             />
           ))}
           {Object.keys(bridges).map((bridgeId) => (
