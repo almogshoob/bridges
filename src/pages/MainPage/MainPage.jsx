@@ -1,8 +1,15 @@
 import { useRef } from "react";
-import { Board, Confetti, DateDisplay, Fail, Settings } from "../../components";
+import {
+  Board,
+  Confetti,
+  DateDisplay,
+  Fail,
+  HowTo,
+  Settings,
+} from "../../components";
 import useSettingsStore from "../../stores/settingsStore";
 
-// TODO navbar, hover
+// TODO how to example, hover
 
 const MainPage = () => {
   const { isHardMode, isDarkMode } = useSettingsStore();
@@ -18,15 +25,14 @@ const MainPage = () => {
       }`}
       tabIndex={0}
     >
-      <nav className="nav">
-        <Settings />
-        <DateDisplay />
-        {/* <HowTo /> */}
-      </nav>
+      <Settings />
+      <h1 className="page-title">גשרים</h1>
+      <DateDisplay />
       <Board
         lottieConfettiRef={lottieConfettiRef}
         lottieFailRef={lottieFailRef}
       />
+      <HowTo />
       <Fail lottieRef={lottieFailRef} />
       <Confetti lottieRef={lottieConfettiRef} />
     </div>
