@@ -127,7 +127,10 @@ button:hover {
   padding-top: 0.3em;
 }
 
-*,
+* {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
 .no-select {
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;

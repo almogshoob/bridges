@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../../App.css";
-import { InfoIcon } from "../../assets/icons";
+import { HelpIcon, InfoIcon } from "../../assets/icons";
+import { HowToModal } from "../HowToModal/HowToModal";
 
 export const HowTo = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -26,13 +27,12 @@ export const HowTo = () => {
           <InfoIcon className="icon" />
           <p>כדי לחבר גשר לחצו על 2 איים אחד אחרי השני</p>
         </div>
-        {/* TODO help example */}
-        {/* <div className="row fit-content button-like" onClick={toggleModal}>
+        <div className="row fit-content button-like" onClick={toggleModal}>
             <HelpIcon className="icon" />
             <p>לא הבנתי תן דוגמה</p>
-          </div> */}
+          </div>
       </div>
-      {/* <HowToModal open={isModalOpen} onClose={toggleModal} /> */}
+      <HowToModal open={isModalOpen} onClose={toggleModal} />
     </div>
   );
 };

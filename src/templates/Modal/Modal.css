@@ -10,6 +10,7 @@
 
 dialog {
   display: none;
+  outline: none;
   opacity: 0;
   transition-property: overlay, display, opacity;
   transition-duration: 200ms;
