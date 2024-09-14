@@ -17,10 +17,10 @@
   --island-stroke-x: hsl(0, 50%, 50%);
   --bridge-color: hsl(25deg 70% 30%);
 
-  --board-width: min(85vw, 600px);
+  --board-width: min(85vw, 450px);
 
   min-height: 100svh;
-  font-size: 1.1rem;
+  font-size: 16px;
   user-select: none;
 
   color: var(--app-text-color);
@@ -66,47 +66,70 @@
 
   /* because somehow i get height more than needed */
   display: grid;
+
+  & svg {
+    cursor: pointer;
+    box-sizing: border-box;
+    padding: 0.1rem;
+    width: var(--width);
+    transition: transform 300ms;
+  }
+
+  & .settings-list {
+    height: 0;
+    transition: height 300ms;
+    overflow: hidden;
+    align-items: center;
+    font-size: 0.8rem;
+    box-sizing: border-box;
+
+    & > :first-child {
+      margin-top: 0.5rem;
+    }
+
+    & p {
+      margin-block: 0 0.3rem;
+    }
+
+    & .toggle {
+      margin-bottom: 0.6rem;
+      --toggle-width: 2.5rem;
+      --toggle-bg-color: var(--app-text-color);
+      --toggle-fg-color: var(--app-background-color);
+      --toggle-check-color: hsl(160, 55%, 50%);
+    }
+  }
+
+  &:hover {
+    background-color: var(--opacity-hover-background-color);
+    transition: background-color 100ms;
+    & .settings-list {
+      height: 7rem;
+    }
+    & svg {
+      transform: rotate(60deg);
+    }
+  }
 }
-.settings:hover {
-  background-color: var(--opacity-hover-background-color);
-  transition: background-color 100ms;
+
+.date {
+  top: 2rem;
+  left: 1rem;
+  position: absolute;
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  rotate: -15deg;
+  line-height: 1;
+  margin-block: 0;
 }
-.settings:hover .settings-list {
-  height: 7rem;
-}
-.settings:hover svg {
-  transform: rotate(60deg);
-}
-.settings svg {
-  cursor: pointer;
-  box-sizing: border-box;
-  padding: 0.1rem;
-  width: var(--width);
-  transition: transform 300ms;
-}
-.settings-list {
-  height: 0;
-  transition: height 300ms;
-  overflow: hidden;
-  align-items: center;
-  font-size: 0.8rem;
-  box-sizing: border-box;
-}
-.settings-list > :first-child {
-  margin-top: 0.5rem;
-}
-.settings-list p {
-  margin-block: 0 0.3rem;
-}
-.settings-list .toggle {
-  margin-bottom: 0.6rem;
-  --toggle-width: 2.5rem;
-  --toggle-bg-color: var(--app-text-color);
-  --toggle-fg-color: var(--app-background-color);
-  --toggle-check-color: hsl(160, 55%, 50%);
+
+.main-wrapper {
+  display: grid;
+  grid-template-areas: "title" "board" "done" "rules";
+  column-gap: 2rem;
 }
 
 .page-title {
+  grid-area: title;
   font-size: clamp(5rem, 22vw, 11rem);
   font-weight: 400;
   font-family: "Karantina";
@@ -121,17 +144,9 @@
   letter-spacing: 0px;
 }
 
-.date {
-  top: 2rem;
-  left: 1rem;
-  position: absolute;
-  font-size: clamp(1.5rem, 4vw, 2rem);
-  rotate: -15deg;
-  line-height: 1;
-  margin-block: 0;
-}
-
 .console {
+  grid-area: board;
+  align-self: center;
   max-width: fit-content;
   margin-inline: auto;
 }
@@ -266,6 +281,7 @@
 }
 
 .done-wrapper {
+  grid-area: done;
   text-align: center;
   margin-top: 2rem;
 }
@@ -300,6 +316,7 @@
 }
 
 .how-to {
+  grid-area: rules;
   width: var(--board-width);
   margin-inline: auto;
   padding-block: 1rem 2rem;
@@ -320,7 +337,6 @@
 
 .help {
   gap: 0.5rem;
-  margin-top: 1.2rem;
 }
 .help p {
   margin: 0;
@@ -361,6 +377,23 @@
   text-align: center;
   width: 30rem;
   height: 4.5rem;
+}
+
+@media (width > 500px) {
+  .main-wrapper {
+    grid-template-areas: "title board" "rules board" "done board";
+    padding: 1rem;
+    padding-top: 5rem;
+    margin-inline: auto;
+    width: fit-content;
+  }
+  .page-title {
+    padding: 0;
+    text-align: right;
+  }
+  .how-to {
+    padding-bottom: 0;
+  }
 }
 
 /* example board */

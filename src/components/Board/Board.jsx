@@ -4,17 +4,10 @@ import { RestartIcon, UndoIcon } from "../../assets/icons";
 import { Bridge, Island, Timer } from "../../components";
 import useBoardStore from "../../stores/boardStore";
 import useSettingsStore from "../../stores/settingsStore";
-import {
-  getBridgeId,
-  getLastTime,
-  getNeighbours,
-  isSolutionCorrect,
-  isValidBridge,
-  runLottie,
-} from "../../utils/utils";
+import { getBridgeId, getNeighbours, isValidBridge } from "../../utils/utils";
 
-export const Board = ({ lottieConfettiRef, lottieFailRef }) => {
-  const { timerState, isHardMode, setTimerState } = useSettingsStore();
+export const Board = () => {
+  const { timerState, setTimerState } = useSettingsStore();
   const {
     islands,
     bridges,
@@ -26,8 +19,6 @@ export const Board = ({ lottieConfettiRef, lottieFailRef }) => {
   const [originCoordinates, setOriginCoordinates] = useState("");
   const gameStack = useRef([]).current;
   const restartCounter = useRef(0);
-
-  const lastTime = getLastTime(isHardMode);
 
   const updateNeighbours = (bridgeId, update) => {
     getNeighbours(bridgeId).forEach((islandId) => {
@@ -88,15 +79,6 @@ export const Board = ({ lottieConfettiRef, lottieFailRef }) => {
     }
   };
 
-  const handleSubmit = () => {
-    if (isSolutionCorrect(islands, bridges)) {
-      runLottie("lottie-confetti", lottieConfettiRef);
-      setTimerState("finish");
-    } else {
-      runLottie("lottie-fail", lottieFailRef);
-    }
-  };
-
   return (
     <div className="console">
       <div className="board-top | row">
@@ -140,12 +122,6 @@ export const Board = ({ lottieConfettiRef, lottieFailRef }) => {
             />
           ))}
         </div>
-      </div>
-      <div className="done-wrapper">
-        <button className="done-button" onClick={handleSubmit}>
-          סיימתי
-        </button>
-        {lastTime && <p>סיימת היום תוך {lastTime}</p>}
       </div>
     </div>
   );

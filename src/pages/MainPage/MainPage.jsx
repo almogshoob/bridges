@@ -3,13 +3,14 @@ import {
   Board,
   Confetti,
   DateDisplay,
+  DoneButton,
   Fail,
   HowTo,
   Settings,
 } from "../../components";
 import useSettingsStore from "../../stores/settingsStore";
 
-// TODO how to example, hover
+// TODO how to example, hover, make grid by width (board width use svh too)
 
 const MainPage = () => {
   const { isHardMode, isDarkMode } = useSettingsStore();
@@ -26,13 +27,16 @@ const MainPage = () => {
       tabIndex={0}
     >
       <Settings />
-      <h1 className="page-title">גשרים</h1>
       <DateDisplay />
-      <Board
-        lottieConfettiRef={lottieConfettiRef}
-        lottieFailRef={lottieFailRef}
-      />
-      <HowTo />
+      <div className="main-wrapper">
+        <h1 className="page-title">גשרים</h1>
+        <Board />
+        <DoneButton
+          lottieConfettiRef={lottieConfettiRef}
+          lottieFailRef={lottieFailRef}
+        />
+        <HowTo />
+      </div>
       <Fail lottieRef={lottieFailRef} />
       <Confetti lottieRef={lottieConfettiRef} />
     </div>

@@ -12,18 +12,7 @@ export const HowTo = () => {
   return (
     <div className="how-to | column">
       <section>
-        <div className="help | column">
-          <div className="row">
-            <InfoIcon className="icon" />
-            <p>כדי לחבר גשר לחצו על 2 איים אחד אחרי השני</p>
-          </div>
-          {/* TODO help example */}
-          {/* <div className="row fit-content button-like" onClick={toggleModal}>
-            <HelpIcon className="icon" />
-            <p>לא הבנתי תן דוגמה</p>
-          </div> */}
-        </div>
-        <h3>חוקים</h3>
+        <h3>איך משחקים?</h3>
         <ul>
           <li>חברו את כל האיים לקבוצה אחת בעזרת גשרים</li>
           <li>המספרים מציינים את מספר הגשרים היוצאים מכל אי</li>
@@ -32,6 +21,17 @@ export const HowTo = () => {
           <li>גשרים יכולים לחבר בכיוון אופקי או אנכי בלבד</li>
         </ul>
       </section>
+      <div className="help | column">
+        <div className="row">
+          <InfoIcon className="icon" />
+          <p>כדי לחבר גשר לחצו על 2 איים אחד אחרי השני</p>
+        </div>
+        {/* TODO help example */}
+        {/* <div className="row fit-content button-like" onClick={toggleModal}>
+            <HelpIcon className="icon" />
+            <p>לא הבנתי תן דוגמה</p>
+          </div> */}
+      </div>
       {/* <HowToModal open={isModalOpen} onClose={toggleModal} /> */}
     </div>
   );
