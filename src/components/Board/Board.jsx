@@ -108,6 +108,7 @@ export const Board = () => {
             <Island
               key={islandId}
               islandId={islandId}
+              isOrigin={islandId === originCoordinates}
               value={islands[islandId].value}
               bridges={islands[islandId].bridges}
               handleIslandTouch={handleIslandTouch}

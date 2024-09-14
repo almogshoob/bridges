@@ -16,6 +16,7 @@
   --island-stroke-v: hsl(100, 50%, 50%);
   --island-stroke-x: hsl(0, 50%, 50%);
   --bridge-color: hsl(25deg 70% 30%);
+  --contrast-color: black;
 
   --board-width: min(85vw, 450px);
 
@@ -26,7 +27,6 @@
   color: var(--app-text-color);
   background-color: var(--app-background-color);
   background: var(--app-background);
-  outline: none;
   position: relative;
 }
 .App.hard-mode {
@@ -48,66 +48,65 @@
   --island-stroke-v: hsl(100, 50%, 40%);
   --island-stroke-x: hsl(0, 50%, 40%);
   --bridge-color: hsl(25deg 50% 25%);
+  --contrast-color: white;
 }
 
 .settings {
   top: 0.5rem;
   right: 0.5rem;
   position: absolute;
-  --width: 3.5rem;
   padding: 0.5rem;
-  width: var(--width);
-
-  backdrop-filter: blur(5px);
-  z-index: 1;
+  width: 3.5rem;
 
   border-radius: 100vw;
   transition: background-color 1500ms;
 
-  /* because somehow i get height more than needed */
-  display: grid;
+  backdrop-filter: blur(5px);
+  z-index: 1;
 
-  & svg {
+  & > svg {
     cursor: pointer;
     box-sizing: border-box;
     padding: 0.1rem;
-    width: var(--width);
     transition: transform 300ms;
   }
 
-  & .settings-list {
-    height: 0;
-    transition: height 300ms;
-    overflow: hidden;
-    align-items: center;
+  & > .settings-list-wrapper {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 300ms;
+
     font-size: 0.8rem;
     box-sizing: border-box;
 
-    & > :first-child {
-      margin-top: 0.5rem;
-    }
+    & > .settings-list {
+      overflow: hidden;
+      align-items: center;
 
-    & p {
-      margin-block: 0 0.3rem;
-    }
+      & p {
+        margin-block: 0 0.3rem;
+      }
 
-    & .toggle {
-      margin-bottom: 0.6rem;
-      --toggle-width: 2.5rem;
-      --toggle-bg-color: var(--app-text-color);
-      --toggle-fg-color: var(--app-background-color);
-      --toggle-check-color: hsl(160, 55%, 50%);
+      & .toggle {
+        margin-bottom: 0.6rem;
+        --toggle-width: 2.5rem;
+        --toggle-bg-color: var(--app-text-color);
+        --toggle-fg-color: var(--app-background-color);
+        --toggle-check-color: hsl(160, 55%, 50%);
+      }
     }
   }
 
-  &:hover {
+  &[open] {
     background-color: var(--opacity-hover-background-color);
     transition: background-color 100ms;
-    & .settings-list {
-      height: 7rem;
-    }
+
     & svg {
       transform: rotate(60deg);
+    }
+
+    & > .settings-list-wrapper {
+      grid-template-rows: 1fr;
     }
   }
 }
@@ -184,16 +183,17 @@
 
 .island {
   z-index: 2;
+  cursor: pointer; 
   position: absolute;
   width: calc(100% / var(--grid-size));
   height: calc(100% / var(--grid-size));
 
   top: calc(100% / var(--grid-size) * var(--top-in-cells));
   left: calc(100% / var(--grid-size) * var(--left-in-cells));
-}
-.island:hover,
-.island:active {
-  filter: brightness(0.9);
+
+  &[origin="true"] {
+    filter: drop-shadow(0 0 2px var(--contrast-color));
+  }
 }
 .island circle {
   fill: var(--island-fill);
@@ -307,7 +307,7 @@
     hsla(0, 0%, 100%, 0.1)
   );
 }
-.done-button:hover::before {
+.done-button:active::before {
   background: linear-gradient(
     to bottom,
     hsla(0, 0%, 100%, 0.55),

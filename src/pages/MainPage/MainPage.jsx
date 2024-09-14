@@ -10,7 +10,7 @@ import {
 } from "../../components";
 import useSettingsStore from "../../stores/settingsStore";
 
-// TODO how to example, hover, make grid by width (board width use svh too)
+// TODO how to example, hover (button, opacity-hover, tooltips)
 
 const MainPage = () => {
   const { isHardMode, isDarkMode } = useSettingsStore();
@@ -24,7 +24,6 @@ const MainPage = () => {
       className={`App | ${isHardMode ? "hard-mode" : ""} ${
         isDarkMode ? "dark-mode" : ""
       }`}
-      tabIndex={0}
     >
       <Settings />
       <DateDisplay />

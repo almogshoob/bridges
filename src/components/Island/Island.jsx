@@ -1,4 +1,4 @@
-export const Island = ({ islandId, value, bridges, handleIslandTouch }) => {
+export const Island = ({ islandId, value, bridges, handleIslandTouch, isOrigin }) => {
   const isDone = bridges === value;
   const isWrong = bridges > value;
 
@@ -11,6 +11,7 @@ export const Island = ({ islandId, value, bridges, handleIslandTouch }) => {
       }}
       id={islandId}
       onClick={handleIslandTouch}
+      origin={isOrigin.toString()}
     >
       <svg
         width={"100%"}
