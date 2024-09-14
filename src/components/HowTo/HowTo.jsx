@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "../../App.css";
-import { HelpIcon, InfoIcon } from "../../assets/icons";
-import { HowToModal } from "../../components";
+import { InfoIcon } from "../../assets/icons";
 
 export const HowTo = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -16,7 +15,7 @@ export const HowTo = () => {
         <div className="help | column">
           <div className="row">
             <InfoIcon className="icon" />
-            <p>כדי לחבר גשר לחצו על  2 איים אחד אחרי השני</p>
+            <p>כדי לחבר גשר לחצו על 2 איים אחד אחרי השני</p>
           </div>
           {/* TODO help example */}
           {/* <div className="row fit-content button-like" onClick={toggleModal}>
@@ -33,7 +32,7 @@ export const HowTo = () => {
           <li>גשרים יכולים לחבר בכיוון אופקי או אנכי בלבד</li>
         </ul>
       </section>
-      <HowToModal open={isModalOpen} onClose={toggleModal} />
+      {/* <HowToModal open={isModalOpen} onClose={toggleModal} /> */}
     </div>
   );
 };
