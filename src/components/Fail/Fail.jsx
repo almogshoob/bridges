@@ -16,7 +16,7 @@ export const Fail = ({ lottieRef }) => {
         position: "fixed",
         top: "50%",
         left: "50%",
-        transform: "translate(-50%,-50%)",
+        translate: "-50% -50%",
         width: "20%",
         zIndex: 3,
         display: "none",

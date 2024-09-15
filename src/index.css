@@ -46,16 +46,9 @@ button {
   font-family: Rubik;
   color: var(--app-text-color);
 }
-button:hover {
-  filter: brightness(1.1);
-}
 
 .button-like {
   cursor: pointer;
-}
-
-.opacity-hover:hover {
-  background-color: var(--opacity-hover-background-color);
 }
 
 .row {
@@ -94,14 +87,9 @@ button:hover {
   transition: opacity 0.15s;
   position: absolute;
   left: 50%;
-  transform: translateX(-50%);
+  translate: -50% 0;
   z-index: 3;
   pointer-events: none;
-}
-
-[tooltip-text]:hover::before,
-[tooltip-text]:hover::after {
-  opacity: 1;
 }
 
 /* tooltip triangle */
@@ -139,4 +127,29 @@ button:hover {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+@media (hover: hover) {
+  button:hover {
+    filter: brightness(1.1);
+  }
+
+  .opacity-hover:hover {
+    background-color: var(--opacity-hover-background-color);
+  }
+
+  [tooltip-text]:hover::before,
+  [tooltip-text]:hover::after {
+    opacity: 1;
+  }
+}
+
+@media (hover: none) {
+  button:active {
+    filter: brightness(1.1);
+  }
+
+  .opacity-hover:active {
+    background-color: var(--opacity-hover-background-color);
+  }
 }

@@ -37,7 +37,7 @@
   aspect-ratio: 1;
   top: 50%;
   left: 5%;
-  transform: translateY(-50%);
+  translate: 0 -50%;
   border-radius: 50%;
   background-color: var(--v-fg-color);
   transition: left var(--v-transition-delay);

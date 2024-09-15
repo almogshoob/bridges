@@ -68,7 +68,7 @@
     cursor: pointer;
     box-sizing: border-box;
     padding: 0.1rem;
-    transition: transform 300ms;
+    transition: rotate 300ms;
   }
 
   & > .settings-list-wrapper {
@@ -102,7 +102,7 @@
     transition: background-color 100ms;
 
     & svg {
-      transform: rotate(60deg);
+      rotate: 60deg;
     }
 
     & > .settings-list-wrapper {
@@ -155,11 +155,11 @@
   border-radius: 1rem;
   background-color: var(--board-background-color);
   box-shadow: var(--board-shadow);
-  transition: transform 1s;
+  transition: rotate 1s;
 }
 .board-wrapper.rotate {
-  transform: rotate(-360deg);
-  transition: transform 0s;
+  rotate: -360deg;
+  transition: rotate 0s;
 }
 
 .board {
@@ -217,7 +217,7 @@
   --border-width: min(8px, calc(var(--board-width) / 75));
 
   &.h {
-    transform: translateY(-50%);
+    translate: 0 -50%;
     width: calc(100% / var(--grid-size) * var(--length-in-cells));
     &.single {
       border-bottom-width: var(--border-width);
@@ -230,7 +230,7 @@
   }
 
   &.v {
-    transform: translateX(-50%);
+    translate: -50% 0;
     height: calc(100% / var(--grid-size) * var(--length-in-cells));
     &.single {
       border-right-width: var(--border-width);

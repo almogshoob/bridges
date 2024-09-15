@@ -10,7 +10,7 @@ import {
 } from "../../components";
 import useSettingsStore from "../../stores/settingsStore";
 
-// TODO how to example, hover (button, opacity-hover, tooltips)
+// TODO make bg of body not App (theme on root like color-guesser)
 
 const MainPage = () => {
   const { isHardMode, isDarkMode } = useSettingsStore();
