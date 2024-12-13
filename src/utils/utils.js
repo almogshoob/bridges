@@ -1,5 +1,7 @@
-import levels13 from "../assets/data/levels-by-date-13.json";
-import levels15 from "../assets/data/levels-by-date-15.json";
+import { easyLevels, hardLevels } from "../assets/data";
+
+const INIT_DATE = new Date("12/12/2023");
+const DAY_IN_MS = 1000 * 60 * 60 * 24;
 
 export const runLottie = (id, lottieRef) => {
   const lottie = document.getElementById(id);
@@ -131,17 +133,13 @@ export const isSolutionCorrect = (islands, bridges) => {
   return connected.length === islandKeys.length;
 };
 
-export const getDate = (date) => {
+const getDate = (date) => {
   const day = ("0" + date.getDate()).slice(-2);
   const month = ("0" + (date.getMonth() + 1)).slice(-2);
   return { day, month };
 };
 
-const getDateKey = (date) => {
-  const day = ("0" + date.getDate()).slice(-2);
-  const month = ("0" + (date.getMonth() + 1)).slice(-2);
-  return `${month}-${day}`;
-};
+export const getTodayDate = () => getDate(new Date());
 
 const initIslandsFromData = (jsonLevel) =>
   Object.keys(jsonLevel).reduce((islandsObject, islandId) => {
@@ -152,10 +150,13 @@ const initIslandsFromData = (jsonLevel) =>
     return islandsObject;
   }, {});
 
-export const getLevel = (date, isHardMode) => {
-  const dateKey = getDateKey(date);
+const differenceInDays = (startDate, endDate) => Math.floor(Math.abs(endDate - startDate) / DAY_IN_MS);
+
+const getLevel = (date, isHardMode) => {
   return initIslandsFromData(
-    isHardMode ? levels13[dateKey] : levels15[dateKey]
+    isHardMode
+      ? hardLevels[differenceInDays(INIT_DATE, date) % hardLevels.length]
+      : easyLevels[differenceInDays(INIT_DATE, date) % easyLevels.length]
   );
 };
 

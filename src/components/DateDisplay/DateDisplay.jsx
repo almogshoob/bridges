@@ -1,8 +1,8 @@
 import "../../App.css";
-import { getDate } from "../../utils/utils";
+import { getTodayDate } from "../../utils/utils";
 
 export const DateDisplay = () => {
-  const date = getDate(new Date());
+  const date = getTodayDate();
 
   return (
     <p className="date">
