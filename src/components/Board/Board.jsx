@@ -1,13 +1,13 @@
-import { useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import "../../App.css";
 import { RestartIcon, UndoIcon } from "../../assets/icons";
-import { Bridge, Island, Timer } from "../../components";
+import { BoardGrid, Bridge, Island, Timer } from "../../components";
 import useBoardStore from "../../stores/boardStore";
 import useSettingsStore from "../../stores/settingsStore";
 import { getBridgeId, getNeighbours, isValidBridge } from "../../utils/utils";
 
 export const Board = () => {
-  const { timerState, setTimerState } = useSettingsStore();
+  const { timerState, setTimerState, isHardMode } = useSettingsStore();
   const {
     islands,
     bridges,
@@ -19,6 +19,8 @@ export const Board = () => {
   const [originCoordinates, setOriginCoordinates] = useState("");
   const gameStack = useRef([]).current;
   const restartCounter = useRef(0);
+
+  const boardSize = useMemo(() => (isHardMode ? 13 : 15), [isHardMode]);
 
   const updateNeighbours = (bridgeId, update) => {
     getNeighbours(bridgeId).forEach((islandId) => {
@@ -104,6 +106,7 @@ export const Board = () => {
           className="board"
           style={{ pointerEvents: timerState === "finish" ? "none" : "unset" }}
         >
+          <BoardGrid boardSize={boardSize} className="board-grid" />
           {Object.keys(islands).map((islandId) => (
             <Island
               key={islandId}

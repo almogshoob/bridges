@@ -1,4 +1,5 @@
 export * from "./Board/Board"
+export * from "./BoardGrid/BoardGrid"
 export * from "./Bridge/Bridge"
 export * from "./Confetti/Confetti"
 export * from "./DateDisplay/DateDisplay"

@@ -168,7 +168,7 @@
   position: relative;
   background-color: inherit;
 }
-.board::before {
+/* .board::before {
   content: "";
   position: absolute;
   width: calc(100% / var(--grid-size) * (var(--grid-size) - 1));
@@ -179,6 +179,16 @@
   background-size: cover;
   background-position: center;
   pointer-events: none;
+} */
+.board-grid {
+	position: absolute;
+	top: calc(100% / var(--grid-size) / 2);
+	left: calc(100% / var(--grid-size) / 2);
+	width: calc(100% / var(--grid-size) * (var(--grid-size) - 1));
+	height: calc(100% / var(--grid-size) * (var(--grid-size) - 1));
+}
+.board-grid > line {
+	stroke: #777;
 }
 
 .island {
