@@ -20,15 +20,19 @@ const MainPage = () => {
 
   return (
     <div
-      id="app"
       className={`App | ${isHardMode ? "hard-mode" : ""} ${
         isDarkMode ? "dark-mode" : ""
       }`}
     >
       <Settings />
+      {/* TODO easter egg switch date */}
       <DateDisplay />
       <div className="main-wrapper">
-        <h1 className="page-title">גשרים</h1>
+        <h1 className="page-title">
+          גשרים
+          {/* TODO easter egg replace ם with hashi in japanese, add tooltip of explaination */}
+          {/* <span>橋</span> */}
+        </h1>
         <Board />
         <DoneButton
           lottieConfettiRef={lottieConfettiRef}
@@ -38,6 +42,7 @@ const MainPage = () => {
       </div>
       <Fail lottieRef={lottieFailRef} />
       <Confetti lottieRef={lottieConfettiRef} />
+      {/* TODO easter egg credits */}
     </div>
   );
 };

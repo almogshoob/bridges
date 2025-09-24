@@ -63,12 +63,6 @@ export const Board = () => {
     }
   };
 
-  const handleRotate = () => {
-    const board = document.getElementById("board-wrapper");
-    board.classList.add("rotate");
-    setTimeout(() => board.classList.remove("rotate"), 0);
-  };
-
   const handleRestart = () => {
     restartCounter.current = restartCounter.current + 1;
     if (restartCounter.current === 1) {
@@ -78,6 +72,20 @@ export const Board = () => {
     } else if (restartCounter.current === 4) {
       handleRotate();
       restartCounter.current = 0;
+    }
+  };
+
+  const handleRotate = () => {
+    const board = document.getElementById("board-wrapper");
+    board.classList.add("rotate");
+    setTimeout(() => board.classList.remove("rotate"), 0);
+  };
+
+  const handleFlipBoard = (event) => {
+    const targetClass = Array.from(event.target.classList).join(" ");
+    if (targetClass.includes("board")) {
+      const board = document.getElementById("board-wrapper");
+      board.classList.toggle("flipped");
     }
   };
 
@@ -100,9 +108,12 @@ export const Board = () => {
           <RestartIcon />
         </div>
       </div>
-      <div id="board-wrapper" className="board-wrapper">
+      <div
+        id="board-wrapper"
+        className="board-wrapper"
+        onDoubleClick={handleFlipBoard}
+      >
         <div
-          id="board"
           className="board"
           style={{ pointerEvents: timerState === "finish" ? "none" : "unset" }}
         >

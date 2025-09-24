@@ -6,7 +6,12 @@ const useSettingsStore = create((set, get) => ({
   isDarkMode: localStorage.getItem("theme") === "dark",
   toggleIsDarkMode: () => set((state) => ({ isDarkMode: !state.isDarkMode })),
   timerState: "init",
-  setTimerState: (timerState) => set(() => ({ timerState })),
+  setTimerState: (param) => set((state) => ({ timerState: typeof param === "function" ? param(state.timerState) : param })),
+  togglePause: () => {
+    const currentState = get().timerState;
+    if (currentState === "run") set({ timerState: "pause" })
+    else if (currentState === "pause") set({ timerState: "run" })
+  }
 }));
 
 export default useSettingsStore;

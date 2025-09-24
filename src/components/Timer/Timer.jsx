@@ -4,7 +4,7 @@ import useSettingsStore from "../../stores/settingsStore";
 import { PauseIcon } from "../../assets/icons";
 
 export const Timer = () => {
-  const { timerState, setTimerState, isHardMode } = useSettingsStore();
+  const { timerState, isHardMode, togglePause } = useSettingsStore();
   const [seconds, setSeconds] = useState(0);
   const [intervalId, setIntervalId] = useState();
 
@@ -62,11 +62,6 @@ export const Timer = () => {
     else if (timerState === "pause") pauseTimer();
     else if (timerState === "init") initTimer();
   }, [timerState]);
-
-  const togglePause = () => {
-    if (timerState === "run") setTimerState("pause");
-    else if (timerState === "pause") setTimerState("run");
-  };
 
   return (
     <>

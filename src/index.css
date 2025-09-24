@@ -78,7 +78,6 @@ button {
 
 [tooltip-text] {
   position: relative;
-  cursor: pointer;
 }
 
 [tooltip-text]::after,

@@ -27,7 +27,7 @@ export const HowTo = () => {
           <InfoIcon className="icon" />
           <p>כדי לחבר גשר לחצו על 2 איים אחד אחרי השני</p>
         </div>
-        <div className="row fit-content button-like" onClick={toggleModal}>
+        <div className="row button-like" onClick={toggleModal}>
             <HelpIcon className="icon" />
             <p>לא הבנתי תן דוגמה</p>
           </div>
