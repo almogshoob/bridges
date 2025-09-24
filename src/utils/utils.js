@@ -153,10 +153,11 @@ const initIslandsFromData = (jsonLevel) =>
 const differenceInDays = (startDate, endDate) => Math.floor(Math.abs(endDate - startDate) / DAY_IN_MS);
 
 const getLevel = (date, isHardMode) => {
+  const levelIndex = differenceInDays(INIT_DATE, date);
   return initIslandsFromData(
     isHardMode
-      ? hardLevels[differenceInDays(INIT_DATE, date) % hardLevels.length]
-      : easyLevels[differenceInDays(INIT_DATE, date) % easyLevels.length]
+      ? hardLevels[levelIndex % hardLevels.length]
+      : easyLevels[levelIndex % easyLevels.length]
   );
 };
 
@@ -168,15 +169,6 @@ export const getLastTime = (isHardMode) => {
   const isFromToday = lastWinInMode?.date === new Date().toLocaleDateString();
   return isFromToday && lastWinInMode?.time;
 };
-
-/*import levelsDates from "../assets/data/levels-by-date-15.json";
-export const processLevelsByDate = (jsonLevels) => {
-  const newLevels = Object.values(jsonLevels);
-  const levelsByDates = Object.fromEntries(
-    Object.keys(levelsDates).map((date, index) => [date, newLevels[index]])
-  );
-  console.log(levelsByDates);
-};*/
 
 // use on Settings useEffect instead getTodayLevel
 // change --grid-size and make bridge thickness in relation to it

@@ -1,6 +1,5 @@
 .App {
   --grid-size: 15;
-  --board-image: url(./assets/images/board-15.png);
 
   --app-text-color: hsl(0, 0%, 95%);
   --app-background-color: hsl(200, 30%, 50%);
@@ -31,7 +30,6 @@
 }
 .App.hard-mode {
   --grid-size: 13;
-  --board-image: url(./assets/images/board-13.png);
 }
 .App.dark-mode {
   --app-text-color: hsl(0, 0%, 85%);
@@ -408,11 +406,6 @@
 
 /* .App {
   --grid-size: 6;
-  --board-image: url(./assets/images/board-example.png);
-  --dropshadow: drop-shadow(0px 0px 10px black);
-}
-.App.dark-mode {
-  --dropshadow: drop-shadow(0px 0px 10px white);
 }
 
 .board-wrapper {
@@ -428,8 +421,4 @@ Settings:
   // setIslands(getTodayLevel(isHardMode));
 Bridge:
   const borderWidth = "13px";
-
-.island {
-  filter: var(--dropshadow);
-}
 */
