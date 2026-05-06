@@ -1,5 +1,17 @@
 import { easyLevels, hardLevels } from "../assets/data";
 
+// easter archive go back up to 1 year 
+const params = new URLSearchParams(window.location.search);
+const dateParam = new Date(params.get('d'));
+const yearAgo = new Date(); yearAgo.setFullYear(yearAgo.getFullYear() - 1);
+const OVERRIDE_DATE = (!isNaN(dateParam)
+  && dateParam.valueOf() > yearAgo.valueOf()
+  && dateParam.valueOf() < (new Date()).valueOf())
+  ? dateParam
+  : null;
+if (!OVERRIDE_DATE && params.get('d')) window.location.replace(window.location.origin + window.location.pathname);
+
+
 const INIT_DATE = new Date("12/12/2023");
 const DAY_IN_MS = 1000 * 60 * 60 * 24;
 
@@ -139,7 +151,7 @@ const getDate = (date) => {
   return { day, month };
 };
 
-export const getTodayDate = () => getDate(new Date());
+export const getTodayDate = () => OVERRIDE_DATE ? getDate(OVERRIDE_DATE) : getDate(new Date());
 
 const initIslandsFromData = (jsonLevel) =>
   Object.keys(jsonLevel).reduce((islandsObject, islandId) => {
@@ -161,7 +173,7 @@ const getLevel = (date, isHardMode) => {
   );
 };
 
-export const getTodayLevel = (isHardMode) => getLevel(new Date(), isHardMode);
+export const getTodayLevel = (isHardMode) => getLevel(OVERRIDE_DATE ? OVERRIDE_DATE : new Date(), isHardMode);
 
 export const getLastTime = (isHardMode) => {
   const lastWin = JSON.parse(localStorage.getItem("last-win") || "{}");
