@@ -17,7 +17,8 @@
   --bridge-color: hsl(25deg 70% 30%);
   --contrast-color: black;
 
-  --board-width: min(85vw, 450px);
+  /* on vertical screen */
+  --board-width: min(85vw, 500px);
 
   min-height: 100svh;
   font-size: 16px;
@@ -139,7 +140,7 @@
 .main-wrapper {
   display: grid;
   grid-template-areas: "title" "board" "done" "rules";
-  column-gap: 6rem;
+  column-gap: 6vw;
   margin-inline: auto;
   width: fit-content;
 }
@@ -405,8 +406,10 @@
   max-width: 55ch;
 }
 
-@media (width > 1000px) {
+@media (width > 950px) {
   .main-wrapper {
+    /* on wide screen, strech board vertically */
+    --board-width: min(50vw, 66vh);
     grid-template-areas: "title board" "rules board" "done board";
     padding: 1rem;
     padding-top: 5rem;
