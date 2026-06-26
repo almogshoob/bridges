@@ -1,4 +1,3 @@
-import "../../App.css";
 import { getTodayDate } from "../../utils/utils";
 
 export const DateDisplay = () => {

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "../../App.css";
 import { HelpIcon, InfoIcon } from "../../assets/icons";
 import { HowToModal } from "../HowToModal/HowToModal";
 

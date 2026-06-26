@@ -1,6 +1,6 @@
 import { easyLevels, hardLevels } from "../assets/data";
 
-// easter archive go back up to 1 year 
+// archive go back up to 1 year 
 const params = new URLSearchParams(window.location.search);
 const dateParam = new Date(params.get('d'));
 const yearAgo = new Date(); yearAgo.setFullYear(yearAgo.getFullYear() - 1);

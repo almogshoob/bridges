@@ -1,5 +1,4 @@
 import { useState } from "react";
-import "../../App.css";
 import { NextPageIcon } from "../../assets/icons";
 import {
   e1FromDark,

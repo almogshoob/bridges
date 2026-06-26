@@ -1,4 +1,3 @@
-import "../../App.css";
 import { getBridge } from "../../utils/utils";
 
 export const Bridge = ({ bridgeId, value, setBridge }) => {

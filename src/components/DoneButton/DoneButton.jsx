@@ -1,4 +1,3 @@
-import "../../App.css";
 import useBoardStore from "../../stores/boardStore";
 import useSettingsStore from "../../stores/settingsStore";
 import { getLastTime, isSolutionCorrect, runLottie } from "../../utils/utils";

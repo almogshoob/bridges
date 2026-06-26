@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useState } from "react";
-import "../../App.css";
 import useSettingsStore from "../../stores/settingsStore";
 import { PauseIcon } from "../../assets/icons";
 

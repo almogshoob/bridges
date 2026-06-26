@@ -8,7 +8,7 @@ export const Fail = ({ lottieRef }) => {
   }, []);
 
   return (
-    <Lottie
+    <Lottie.default
       id="lottie-fail"
       animationData={lottieFail}
       lottieRef={lottieRef}
