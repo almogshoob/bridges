@@ -5,5 +5,6 @@ import PauseIcon from "./icons8_pause.svg?react";
 import RestartIcon from "./icons8_restart.svg?react";
 import SettingsIcon from "./icons8_settings.svg?react";
 import UndoIcon from "./icons8_undo.svg?react";
+import QRCode from "./qr-code.svg?react";
 
-export { HelpIcon, InfoIcon, NextPageIcon, PauseIcon, RestartIcon, SettingsIcon, UndoIcon }
+export { HelpIcon, InfoIcon, NextPageIcon, PauseIcon, RestartIcon, SettingsIcon, UndoIcon, QRCode }

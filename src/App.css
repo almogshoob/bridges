@@ -49,6 +49,32 @@
   --bridge-color: hsl(25deg 50% 25%);
   --contrast-color: white;
 }
+.App.time-effect-dark {
+  filter: brightness(0.2);
+  transition: filter 5s linear;
+}
+.App.time-effect-dark .board-wrapper {
+  animation: shake 800ms linear 1.5s, shake 700ms linear 2.3s,
+    shake 600ms linear 3s, shake 500ms linear 3.6s, shake 400ms linear 4.1s,
+    shake 300ms linear 4.5s, shake 200ms linear 4.8s,
+    shake 100ms infinite linear 5s;
+}
+.App.time-effect-flash {
+  opacity: 0;
+  filter: brightness(1);
+  transition: opacity 400ms, filter 400ms;
+  & .board-wrapper {
+    animation: explode 300ms ease-in forwards;
+  }
+}
+.App.time-effect-end {
+  opacity: 1;
+  transition: opacity 5s;
+
+  & .board-wrapper {
+    transition-duration: 0ms;
+  }
+}
 
 .settings {
   top: 0.5rem;
@@ -156,9 +182,35 @@
   margin: 0;
   padding-block: 3rem 2rem;
   text-shadow: 3px 3px 5px hsla(0, 0%, 0%, 0.5);
+  --animation-delay: 3000ms;
 }
 .page-title::first-letter {
   letter-spacing: 0px;
+}
+.page-title > .hide {
+  animation: fade-out var(--animation-delay) forwards;
+}
+.page-title > #hashi {
+  font-size: 0.6em;
+  position: relative;
+  bottom: 0.16em;
+  left: 2ch;
+  display: none;
+  animation: fade-in var(--animation-delay) forwards;
+
+  &.visible {
+    display: inline;
+  }
+
+  /* reset title styles on tooltip */
+  &::before {
+    font-family:
+      Varela Round,
+      sans-serif;
+    letter-spacing: normal;
+    text-shadow: none;
+    line-height: 1.2;
+  }
 }
 
 .console {
@@ -166,26 +218,46 @@
   margin-inline: auto;
 }
 
+.perspective {
+  /* set perspective to 3d transformations */
+  perspective: 50cm;
+}
 .board-wrapper {
+  position: relative;
   padding: clamp(8px, 2.25vw, 16px);
   border-radius: 1rem;
   background-color: var(--board-background-color);
   box-shadow: var(--board-shadow);
-  transition: rotate 1s, scale 1s;
+  transform-style: preserve-3d;
+  transition:
+    rotate 1s,
+    transform 1s;
 }
 .board-wrapper.rotate {
   rotate: -360deg;
   transition: rotate 0s;
 }
 .board-wrapper.flipped {
-  scale: -1 1;
+  transform: rotateY(180deg);
 }
 
+.board-back {
+  position: absolute;
+  inset: 0;
+  transform: rotateY(180deg);
+  
+  & > svg {
+    color: var(--contrast-color);
+    width: 100%;
+  }
+}
 .board {
   width: var(--board-width);
   aspect-ratio: 1;
   position: relative;
   background-color: inherit;
+  /* make it hidden when flipped */
+  backface-visibility: hidden;
 }
 /* .board::before {
   content: "";
@@ -406,6 +478,39 @@
   max-width: 55ch;
 }
 
+.credits {
+  --roll-time: 8s;
+  position: fixed;
+  inset: 0;
+  z-index: 6;
+  background-color: black;
+  display: none;
+  animation:
+    fade-in-80 500ms forwards,
+    fade-out-80 500ms forwards var(--roll-time);
+
+  &.display {
+    display: block;
+  }
+}
+.credits::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  right: -150px;
+  left: -150px;
+  box-shadow: inset 0 0 100px 50px #131d23;
+}
+.credits p {
+  margin: 0 auto;
+  text-align: center;
+  white-space: pre-line;
+  line-height: 1.5;
+  font-size: 2rem;
+  transform: translateY(100%);
+  animation: roller var(--roll-time) linear;
+}
+
 @media (width > 950px) {
   .main-wrapper {
     /* on wide screen, strech board vertically */
@@ -421,6 +526,84 @@
   .how-to {
     padding: 0;
     padding-top: 1rem;
+  }
+}
+
+@keyframes roller {
+  0% {
+    transform: translateY(100vh);
+  }
+
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-in-80 {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes fade-out-80 {
+  0% {
+    opacity: 0.8;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes shake {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  25% {
+    transform: rotate(1deg);
+  }
+
+  50% {
+    transform: rotate(0deg);
+  }
+
+  75% {
+    transform: rotate(-1deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes explode {
+  to {
+    transform: scale(4) rotate(10deg);
   }
 }
 

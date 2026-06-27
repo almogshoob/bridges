@@ -38,6 +38,10 @@ body {
   margin: 0;
 }
 
+#root {
+  overflow: hidden;
+}
+
 button {
   border: none;
   width: fit-content;

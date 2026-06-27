@@ -1,6 +1,5 @@
 import { useMemo, useRef, useState } from "react";
-import "../../App.css";
-import { RestartIcon, UndoIcon } from "../../assets/icons";
+import { QRCode, RestartIcon, UndoIcon } from "../../assets/icons";
 import { BoardGrid, Bridge, Island, Timer } from "../../components";
 import useBoardStore from "../../stores/boardStore";
 import useSettingsStore from "../../stores/settingsStore";
@@ -16,6 +15,7 @@ export const Board = () => {
     removeBridge,
     restartBoard,
   } = useBoardStore();
+  const { handleFlipBoard, handleRotateBoard } = useBoardTransform();
   const [originCoordinates, setOriginCoordinates] = useState("");
   const gameStack = useRef([]).current;
   const restartCounter = useRef(0);
@@ -70,22 +70,8 @@ export const Board = () => {
       restartBoard();
       gameStack.length = 0;
     } else if (restartCounter.current === 4) {
-      handleRotate();
+      handleRotateBoard();
       restartCounter.current = 0;
-    }
-  };
-
-  const handleRotate = () => {
-    const board = document.getElementById("board-wrapper");
-    board.classList.add("rotate");
-    setTimeout(() => board.classList.remove("rotate"), 0);
-  };
-
-  const handleFlipBoard = (event) => {
-    const targetClass = Array.from(event.target.classList).join(" ");
-    if (targetClass.includes("board")) {
-      const board = document.getElementById("board-wrapper");
-      board.classList.toggle("flipped");
     }
   };
 
@@ -108,36 +94,64 @@ export const Board = () => {
           <RestartIcon />
         </div>
       </div>
-      <div
-        id="board-wrapper"
-        className="board-wrapper"
-        onDoubleClick={handleFlipBoard}
-      >
+      <div className="perspective">
         <div
-          className="board"
-          style={{ pointerEvents: timerState === "finish" ? "none" : "unset" }}
+          id="board-wrapper"
+          className="board-wrapper"
+          onDoubleClick={handleFlipBoard}
         >
-          <BoardGrid boardSize={boardSize} className="board-grid" />
-          {Object.keys(islands).map((islandId) => (
-            <Island
-              key={islandId}
-              islandId={islandId}
-              isOrigin={islandId === originCoordinates}
-              value={islands[islandId].value}
-              bridges={islands[islandId].bridges}
-              handleIslandTouch={handleIslandTouch}
-            />
-          ))}
-          {Object.keys(bridges).map((bridgeId) => (
-            <Bridge
-              key={bridgeId}
-              bridgeId={bridgeId}
-              value={bridges[bridgeId]}
-              setBridge={setBridge}
-            />
-          ))}
+          <div className="board-back">
+            <QRCode className="qr" />
+          </div>
+          <div
+            className="board"
+            style={{
+              pointerEvents: timerState === "finish" ? "none" : "unset",
+            }}
+          >
+            <BoardGrid boardSize={boardSize} className="board-grid" />
+            {Object.keys(islands).map((islandId) => (
+              <Island
+                key={islandId}
+                islandId={islandId}
+                isOrigin={islandId === originCoordinates}
+                value={islands[islandId].value}
+                bridges={islands[islandId].bridges}
+                handleIslandTouch={handleIslandTouch}
+              />
+            ))}
+            {Object.keys(bridges).map((bridgeId) => (
+              <Bridge
+                key={bridgeId}
+                bridgeId={bridgeId}
+                value={bridges[bridgeId]}
+                setBridge={setBridge}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </div>
   );
+};
+
+const useBoardTransform = () => {
+  const handleRotateBoard = () => {
+    const board = document.getElementById("board-wrapper");
+    board.classList.add("rotate");
+    setTimeout(() => board.classList.remove("rotate"), 0);
+  };
+
+  const handleFlipBoard = (event) => {
+    const targetClass = Array.from(event.target.classList).join(" ");
+    if (targetClass.includes("board")) {
+      const board = document.getElementById("board-wrapper");
+      board.classList.toggle("flipped");
+    }
+  };
+
+  return {
+    handleRotateBoard,
+    handleFlipBoard,
+  };
 };
