@@ -1,8 +1,8 @@
 # Bridges
 
 Have fun playing the daily bridges! :)
-<br />
-You might want to pay attention to the following things:
+<br /><br /><br />
+You might want to pay attention to the following:
 * Is there a space between C and D?
 * I once knew a guy that could go back in time, let's call him Mr. D
 * There is another guy that can go forward in time, though it much harder
