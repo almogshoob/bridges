@@ -101,7 +101,7 @@ export const Board = () => {
           onDoubleClick={handleFlipBoard}
         >
           <div className="board-back">
-            <QRCode className="qr" />
+            <QRCode />
           </div>
           <div
             className="board"

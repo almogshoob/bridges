@@ -239,6 +239,9 @@
 }
 .board-wrapper.flipped {
   transform: rotateY(180deg);
+  & .board {
+    pointer-events: none !important;
+  }
 }
 
 .board-back {
@@ -247,6 +250,7 @@
   transform: rotateY(180deg);
   
   & > svg {
+    pointer-events: none;
     color: var(--contrast-color);
     width: 100%;
   }
